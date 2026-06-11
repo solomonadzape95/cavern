@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Skill bundle ships its own scripts — not our app code.
+    ".claude/**",
   ]),
 ]);
 
