@@ -1,26 +1,161 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ----------------------------------------------------------------------------
+   Cavern Studios — green-grunge design tokens (Tailwind v4)
+   Palette, type, and spacing per .impeccable.md
+---------------------------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Palette */
+  --color-canvas: #3f4a3c; /* dark moss — dominant surface */
+  --color-canvas-deep: #2f382d; /* a step darker for wells/footers */
+  --color-paper: #e9e9dd; /* off-white ink */
+  --color-olive: #807f51; /* buttons, links, default accent */
+  --color-sage: #a2af9e; /* subtle UI, borders, secondary text */
+  --color-moss: #41723b; /* highlight + hover only */
+
+  /* Fonts — display = Grand Canyon (--font-grand), body = EB Garamond (--font-garamond) */
+  --font-display: var(--font-grand), "Times New Roman", serif;
+  --font-body: var(--font-garamond), Georgia, serif;
+
+  /* Fluid display type scale (>= 1.25 ratio) — large and loud */
+  --text-mega: clamp(3rem, 13vw, 14rem);
+  --text-mega-lg: clamp(3.5rem, 15vw, 15.5rem);
+  --text-display: clamp(3.25rem, 9vw, 7.5rem);
+  --text-title: clamp(2.5rem, 5.5vw, 4.5rem);
+  --text-heading: clamp(1.75rem, 3vw, 2.75rem);
+
+  /* 4pt spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6.5rem;
+
+  /* Hiring banner marquee */
+  --animate-marquee: marquee 32s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
+:root {
+  --ease-carve: cubic-bezier(0.16, 1, 0.3, 1);
+  /* height the fixed header offsets by when the hiring banner is shown */
+  --banner-h: 0px;
+}
+
+/* Loader — orbiting-dot spinner. Size via --loader-size (default 40px). */
+.loader {
+  --ls: var(--loader-size, 40px);
+  width: var(--ls);
+  aspect-ratio: 1;
+  background:
+    radial-gradient(farthest-side, var(--color-moss) 90%, #0000) 50% 50% /
+      calc(var(--ls) * 0.2) calc(var(--ls) * 0.2) no-repeat,
+    conic-gradient(
+        from -90deg at calc(var(--ls) * 0.375) calc(var(--ls) * 0.375),
+        #0000 90deg,
+        var(--color-paper) 0
+      )
+      0 0 / calc(var(--ls) * 0.625) calc(var(--ls) * 0.625);
+  animation: l7 1s infinite;
+}
+
+@keyframes l7 {
+  0% {
+    background-position: 50% 50%, 0 0;
+  }
+  50% {
+    background-position: 50% 50%, calc(var(--ls) * 0.625) 0;
+  }
+  100% {
+    background-position: 50% 50%, calc(var(--ls) * 0.625) calc(var(--ls) * 0.625);
+  }
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-sage) 30%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  /* bigger base + light ink on dark needs more leading */
+  font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-moss);
+  color: var(--color-paper);
+}
+
+/* Display utility — Grand Canyon, big all-caps headers only */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.9;
+}
+
+/* Heading utility — EB Garamond bold, for sub-headers, app name, card titles */
+.font-heading {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* Carved label: small letterspaced uppercase, used for eyebrows / nav */
+.label {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* Hairline rule with a torn-ink feel */
+.rule {
+  height: 1px;
+  background: color-mix(in oklab, var(--color-sage) 45%, transparent);
+}
+
+/* Thin custom scrollbar in palette */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-olive);
+  border: 2px solid var(--color-canvas-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
