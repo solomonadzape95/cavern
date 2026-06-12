@@ -3,10 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { JOBS } from "@/content/jobs";
 
 const BANNER_HEIGHT = "2.75rem";
-const MESSAGE = `We're hiring — ${JOBS.length} open roles across engineering, art, audio & marketing. Come build with us.`;
 const REPEATS = 4;
 
 /**
@@ -14,8 +12,9 @@ const REPEATS = 4;
  * <html> while visible so SiteHeader can slide down out of its way
  * (see app/globals.css and SiteHeader.tsx).
  */
-export function HiringToast() {
+export function HiringToast({ jobsCount }: { jobsCount: number }) {
   const [show, setShow] = useState(false);
+  const message = `We're hiring — ${jobsCount} open roles across engineering, art, audio & marketing. Come build with us.`;
 
   useEffect(() => {
     const t = window.setTimeout(() => setShow(true), 1400);
@@ -45,7 +44,7 @@ export function HiringToast() {
         >
           <Link
             href="/jobs"
-            aria-label={`We're hiring — view ${JOBS.length} open roles`}
+            aria-label={`We're hiring — view ${jobsCount} open roles`}
             className="absolute inset-0 flex items-center overflow-hidden"
           >
             <div className="flex w-max animate-marquee items-center">
@@ -60,7 +59,7 @@ export function HiringToast() {
                       key={i}
                       className="label mx-6 flex shrink-0 items-center gap-3 whitespace-nowrap"
                     >
-                      {MESSAGE}
+                      {message}
                       <span aria-hidden className="text-paper/50">
                         ●
                       </span>

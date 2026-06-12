@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { CavernTexture } from "@/components/ui/CavernTexture";
 import { MaskReveal, Reveal } from "@/components/anim/Reveal";
 
@@ -11,15 +12,28 @@ export function PageHeader({
   title,
   lead,
   imageSrc = "/peripheral-hero.jpg",
+  backHref,
+  backLabel = "Back",
 }: {
   eyebrow: string;
   title: string;
   lead?: ReactNode;
   imageSrc?: string;
+  backHref?: string;
+  backLabel?: string;
 }) {
   return (
     <header className="relative flex h-[75vh] min-h-120 flex-col items-center justify-center overflow-hidden text-center">
       <CavernTexture variant="header" imageSrc={imageSrc} priority />
+
+      {backHref && (
+        <Link
+          href={backHref}
+          className="label absolute top-6 left-5 z-20 text-sage transition-colors hover:text-moss md:top-8 md:left-10"
+        >
+          ← {backLabel}
+        </Link>
+      )}
 
       <div className="relative z-10 mx-auto flex w-full max-w-275 flex-col items-center px-5 md:px-10">
         <Reveal className="label mb-4 text-sage">{eyebrow}</Reveal>

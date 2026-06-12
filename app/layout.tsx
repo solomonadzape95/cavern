@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
 import localFont from "next/font/local";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import { GrainOverlay } from "@/components/ui/GrainOverlay";
-import { TornFilters } from "@/components/ui/TornFilters";
-import { SiteHeader } from "@/components/chrome/SiteHeader";
-import { HiringToast } from "@/components/chrome/HiringToast";  
-import { SiteFooter } from "@/components/chrome/SiteFooter";
 
-// Grand Canyon — display face for big all-caps headers only  
+// Grand Canyon — display face for big all-caps headers only
 const display = localFont({
   variable: "--font-grand",
   src: "../public/fonts/Grand-Canyon-Free.otf",
@@ -38,18 +34,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} h-full antialiased`}
-    >
-      <body className="bg-canvas text-paper font-body min-h-full">
-        <TornFilters />
-        <GrainOverlay />
-        <SiteHeader />
-        <HiringToast />
-        {children}
-        <SiteFooter />
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl="/admin/sign-in">
+      <html
+        lang="en"
+        className={`${display.variable} ${body.variable} h-full antialiased`}
+      >
+        <body className="bg-canvas text-paper font-body min-h-full">
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

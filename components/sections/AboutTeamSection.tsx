@@ -1,4 +1,5 @@
-import { TEAM, avatar } from "@/content/team";
+import { avatar } from "@/lib/art";
+import type { Member } from "@/lib/data/team";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { GrungeFrame } from "@/components/ui/GrungeFrame";
 import { SocialIcon } from "@/components/ui/SocialIcon";
@@ -8,7 +9,7 @@ import { Reveal } from "@/components/anim/Reveal";
  * Static "roster" variant of the homepage team marquee — a fixed grid with
  * every bio visible up front, for the about page's slower-paced read.
  */
-export function AboutTeamSection() {
+export function AboutTeamSection({ team }: { team: Member[] }) {
   return (
     <div className="mt-24">
       <SectionHeader
@@ -19,7 +20,7 @@ export function AboutTeamSection() {
       />
 
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {TEAM.map((m, i) => (
+        {team.map((m, i) => (
           <Reveal key={m.name} delay={(i % 3) * 0.06}>
             <GrungeFrame
               className="h-105 md:h-120"
@@ -30,7 +31,7 @@ export function AboutTeamSection() {
               media={
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={avatar(m.seed)}
+                  src={m.image || avatar(m.seed)}
                   alt={m.name}
                   className="absolute inset-0 h-full w-full object-cover opacity-90"
                 />
