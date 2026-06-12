@@ -15,7 +15,7 @@ import {
   LuMail,
   LuArrowUpRight,
 } from "react-icons/lu";
-import { NAV, SITE, SOCIALS } from "@/content/site";
+import type { SiteSettings } from "@/lib/data/site";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { GrungeFrame } from "@/components/ui/GrungeFrame";
 import { cn } from "@/lib/cn";
@@ -32,7 +32,8 @@ const NAV_ICONS: Record<string, IconType> = {
   "/contact": LuMail,
 };
 
-export function SiteHeader() {
+export function SiteHeader({ settings }: { settings: SiteSettings }) {
+  const { name, email, nav, socials } = settings;
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -81,12 +82,12 @@ export function SiteHeader() {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            aria-label={SITE.name}
+            aria-label={name}
             className="shrink-0 transition-opacity hover:opacity-80"
           >
             <Image
               src="/cavern-lettermark.svg"
-              alt={SITE.name}
+              alt={name}
               width={156}
               height={137}
               priority
@@ -94,7 +95,7 @@ export function SiteHeader() {
             />
             <Image
               src="/logo-cavern.svg"
-              alt={SITE.name}
+              alt={name}
               width={699}
               height={234}
               priority
@@ -148,7 +149,7 @@ export function SiteHeader() {
             <nav className="mt-(--banner-h) mx-auto flex h-full max-w-[90svw] flex-col justify-center px-5 pt-24 pb-10 md:px-10">
               {/* nav cards */}
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-                {NAV.map((item, i) => {
+                {nav.map((item, i) => {
                   const Icon = NAV_ICONS[item.href] ?? LuArrowUpRight;
                   const active = isActiveLink(pathname, item.href);
                   return (
@@ -226,7 +227,7 @@ export function SiteHeader() {
                   CAVERN STUDIOS.
                 </h2>
                 <div className="mt-6 flex flex-wrap items-center gap-5 border-t border-sage/20 pt-5">
-                  {SOCIALS.map((s) => (
+                  {socials.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
@@ -239,7 +240,7 @@ export function SiteHeader() {
                     </a>
                   ))}
                   <span className="cursor-pointer hover:text-sage text-2xl font-semibold ml-auto text-sage/60">
-                    {SITE.email}
+                    {email}
                   </span>
                 </div>
               </motion.div>

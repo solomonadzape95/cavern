@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { GAMES, coverArt } from "@/content/games";
+import { coverArt } from "@/lib/art";
+import type { Game } from "@/lib/data/games";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { GrungeFrame } from "@/components/ui/GrungeFrame";
 
-export function GamesSection() {
+export function GamesSection({ games }: { games: Game[] }) {
   return (
     <section
       id="games"
@@ -21,7 +22,7 @@ export function GamesSection() {
         />
 
         <div className="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2">
-          {GAMES.map((game) => (
+          {games.map((game) => (
             <Link key={game.slug} href={`/games/${game.slug}`} className="group block">
               <GrungeFrame
                 className="aspect-video w-full"

@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
-import { NAV, SITE, SOCIALS } from "@/content/site";
+import type { SiteSettings } from "@/lib/data/site";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { cn } from "@/lib/cn";
 import { isActiveLink } from "@/lib/isActiveLink";
 
-export function SiteFooter() {
+export function SiteFooter({ settings }: { settings: SiteSettings }) {
+  const { name, nav, socials } = settings;
   const year = new Date().getFullYear();
   const pathname = usePathname();
   const reduce = useReducedMotion();
@@ -38,7 +39,7 @@ export function SiteFooter() {
 
         <nav className="w-full md:max-w-md md:justify-self-center">
           <ul className="divide-y divide-canvas-deep/15 border-canvas-deep/15">
-            {NAV.map((l) => (
+            {nav.map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
@@ -78,7 +79,7 @@ export function SiteFooter() {
       {/* baseline: socials + legal + copyright */}
       <div className="mx-auto flex w-full max-w-350 flex-col gap-4 border-canvas-deep/15 pt-6 text-sm text-canvas-deep/70 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-5">
-          {SOCIALS.map((s) => (
+          {socials.map((s) => (
             <a
               key={s.label}
               href={s.href}
@@ -99,7 +100,7 @@ export function SiteFooter() {
           </Link>
         </div>
         <span className="md:text-xl">
-          © {year} {SITE.name}. All rights reserved. Some wrongs corrected.
+          © {year} {name}. All rights reserved. Some wrongs corrected.
         </span>
       </div>
     </footer>

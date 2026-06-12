@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { SITE } from "@/content/site";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { MaskReveal, Reveal } from "@/components/anim/Reveal";
 import { GrungeEdge } from "@/components/ui/GrungeEdge";
 
-export function ContactSection() {
+export function ContactSection({
+  email,
+  location,
+}: {
+  email: string;
+  location: string;
+}) {
   return (
     <section
       id="contact"
@@ -30,12 +35,12 @@ export function ContactSection() {
           </Reveal>
           <Reveal delay={0.25} className="mt-8 flex flex-col gap-1">
             <a
-              href={`mailto:${SITE.email}`}
+              href={`mailto:${email}`}
               className="font-heading text-2xl text-paper transition-colors hover:text-moss"
             >
-              {SITE.email}
+              {email}
             </a>
-            <span className="text-sage">{SITE.location}</span>
+            <span className="text-sage">{location}</span>
           </Reveal>
         </div>
 

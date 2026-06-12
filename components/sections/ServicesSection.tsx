@@ -11,7 +11,7 @@ import {
   LuPalette,
   LuArrowRight,
 } from "react-icons/lu";
-import { SERVICES } from "@/content/services";
+import type { Service } from "@/lib/data/services";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { GrungeEdge } from "../ui/GrungeEdge";
 
@@ -19,7 +19,7 @@ const ICONS: IconType[] = [LuGamepad2, LuCode, LuPalette];
 
 const cell = "relative bg-canvas-deep p-7 md:p-8 flex flex-col";
 
-export function ServicesSection() {
+export function ServicesSection({ services }: { services: Service[] }) {
   const root = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -98,7 +98,7 @@ export function ServicesSection() {
               </div>
 
               {/* service cells */}
-              {SERVICES.map((s, i) => {
+              {services.map((s, i) => {
                 const Icon = ICONS[i] ?? LuGamepad2;
                 return (
                   <div key={s.no} className={`${cell} sm:col-span-2`}>

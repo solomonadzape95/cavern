@@ -6,13 +6,12 @@ import { CavernTexture } from "@/components/ui/CavernTexture";
 import { MaskReveal, Reveal } from "@/components/anim/Reveal";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { GrungeEdge } from "@/components/ui/GrungeEdge";
-import { SITE } from "@/content/site";
 
 const COLS = 8;
 const ROWS = 6;
 const TILES = Array.from({ length: COLS * ROWS });
 
-export function Hero() {
+export function Hero({ founded, tagline }: { founded: number; tagline: string }) {
   const root = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -67,7 +66,7 @@ export function Hero() {
             delay={0.9}
             className="text-md uppercase font-semibold mb-6 text-sage"
           >
-            Cavern Studios · est. {SITE.founded}
+            Cavern Studios · est. {founded}
           </Reveal>
 
           <h1 className="font-display text-paper text-(length:--text-mega) drop-shadow-[0_2px_24px_rgba(20,26,19,0.6)]">
@@ -78,11 +77,11 @@ export function Hero() {
             />
           </h1>
 
-          <Reveal delay={1.3} className="mt-6">
+          {/* <Reveal delay={1.3} className="mt-6">
             <span className="font-semibold text-md uppercase label text-sage">
-              {SITE.tagline}
+              {tagline}
             </span>
-          </Reveal>
+          </Reveal> */}
 
           <Reveal
             delay={1.5}

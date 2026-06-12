@@ -3,15 +3,16 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { useReducedMotion } from "motion/react";
-import { TEAM, avatar } from "@/content/team";
+import { avatar } from "@/lib/art";
+import type { Member } from "@/lib/data/team";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { GrungeFrame } from "@/components/ui/GrungeFrame";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 
-export function TeamSection() {
+export function TeamSection({ team }: { team: Member[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const items = reduce ? TEAM : [...TEAM, ...TEAM];
+  const items = reduce ? team : [...team, ...team];
 
   useLayoutEffect(() => {
     if (reduce || !trackRef.current) return;
@@ -19,7 +20,7 @@ export function TeamSection() {
     const tween = gsap.to(track, {
       xPercent: -50,
       ease: "none",
-      duration: TEAM.length * 6,
+      duration: team.length * 6,
       repeat: -1,
     });
     const pause = () => tween.pause();
@@ -31,7 +32,7 @@ export function TeamSection() {
       track.removeEventListener("mouseenter", pause);
       track.removeEventListener("mouseleave", resume);
     };
-  }, [reduce]);
+  }, [reduce, team.length]);
 
   return (
     <section
@@ -69,7 +70,7 @@ export function TeamSection() {
                 media={
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={avatar(m.seed)}
+                    src={m.image || avatar(m.seed)}
                     alt={m.name}
                     className="absolute inset-0 h-full w-full object-cover opacity-90"
                   />
