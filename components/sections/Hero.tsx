@@ -77,11 +77,11 @@ export function Hero({ founded, tagline }: { founded: number; tagline: string })
             />
           </h1>
 
-          <Reveal delay={1.3} className="mt-6">
+          {/* <Reveal delay={1.3} className="mt-6">
             <span className="font-semibold text-md uppercase label text-sage">
               {tagline}
             </span>
-          </Reveal>
+          </Reveal> */}
 
           <Reveal
             delay={1.5}
