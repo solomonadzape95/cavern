@@ -32,7 +32,7 @@ export function DataTable<T>({
           {items.map((item, i) => (
             <tr key={i} className="border-b border-canvas/10 last:border-b-0">
               {columns.map((col) => (
-                <td key={col.header} className={`px-4 py-3 text-canvas-deep ${col.className ?? ""}`}>
+                <td key={col.header} className={`px-4 py-3 text-canvas-deep whitespace-nowrap ${col.className ?? ""}`}>
                   {col.cell(item)}
                 </td>
               ))}

@@ -79,7 +79,7 @@ export function AuthCard({
 }) {
   return (
     <div className="bg-canvas flex min-h-screen items-center justify-center p-6">
-      <div className="bg-paper text-canvas-deep w-full max-w-1/3 space-y-6 p-8">
+      <div className="bg-paper text-canvas-deep w-full max-w-10/12 md:max-w-2/3 lg:max-w-1/2 space-y-6 p-8">
         <Link href="/" className="block">
           <Image
             src="/logo-cavern.svg"
