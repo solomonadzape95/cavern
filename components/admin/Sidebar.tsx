@@ -16,6 +16,7 @@ import {
   LuLogOut,
   LuPanelLeftClose,
   LuPanelLeftOpen,
+  LuMail,
 } from "react-icons/lu";
 import type { AdminResource } from "@/db/schema";
 import { cn } from "@/lib/cn";
@@ -26,6 +27,7 @@ const RESOURCE_ICONS: Record<AdminResource, IconType> = {
   news: LuNewspaper,
   jobs: LuPickaxe,
   team: LuUsers,
+  newsletter: LuMail,
   site: LuSettings,
 };
 

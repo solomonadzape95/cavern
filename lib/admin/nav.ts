@@ -5,5 +5,6 @@ export const RESOURCE_NAV: { resource: AdminResource; label: string; href: strin
   { resource: "news", label: "News", href: "/admin/news" },
   { resource: "jobs", label: "Jobs", href: "/admin/jobs" },
   { resource: "team", label: "Team", href: "/admin/team" },
+  { resource: "newsletter", label: "Newsletter", href: "/admin/newsletter" },
   { resource: "site", label: "Site settings", href: "/admin/site" },
 ];

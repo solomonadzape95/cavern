@@ -27,6 +27,12 @@ export const adminResource = pgEnum("admin_resource", [
   "jobs",
   "team",
   "site",
+  "newsletter",
+]);
+
+export const newsletterSubscriberStatus = pgEnum("newsletter_subscriber_status", [
+  "subscribed",
+  "unsubscribed",
 ]);
 
 // Shared shapes for jsonb columns.
@@ -151,6 +157,26 @@ export const adminPermissions = pgTable("admin_permissions", {
 });
 
 // ---------------------------------------------------------------------------
+// Newsletter
+// ---------------------------------------------------------------------------
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: uuid().primaryKey().defaultRandom(),
+  email: text().notNull().unique(),
+  status: newsletterSubscriberStatus().notNull().default("subscribed"),
+  unsubscribeToken: uuid().notNull().defaultRandom(),
+  subscribedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+});
+
+export const newsletterCampaigns = pgTable("newsletter_campaigns", {
+  id: uuid().primaryKey().defaultRandom(),
+  subject: text().notNull(),
+  body: text().notNull(),
+  recipientCount: integer().notNull().default(0),
+  sentAt: timestamp({ withTimezone: true }),
+  ...timestamps,
+});
+
+// ---------------------------------------------------------------------------
 // Inferred types — used across the data layer, forms, and public pages.
 // ---------------------------------------------------------------------------
 export type Game = typeof games.$inferSelect;
@@ -161,9 +187,12 @@ export type Service = typeof services.$inferSelect;
 export type SiteSettings = typeof siteSettings.$inferSelect;
 export type AdminUser = typeof adminUsers.$inferSelect;
 export type AdminPermission = typeof adminPermissions.$inferSelect;
+export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
+export type NewsletterCampaign = typeof newsletterCampaigns.$inferSelect;
 
 export type GameStatus = (typeof gameStatus.enumValues)[number];
 export type GameAccent = (typeof gameAccent.enumValues)[number];
 export type NewsKind = (typeof newsKind.enumValues)[number];
 export type AdminRole = (typeof adminRole.enumValues)[number];
 export type AdminResource = (typeof adminResource.enumValues)[number];
+export type NewsletterSubscriberStatus = (typeof newsletterSubscriberStatus.enumValues)[number];

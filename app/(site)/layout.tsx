@@ -3,6 +3,8 @@ import { TornFilters } from "@/components/ui/TornFilters";
 import { SiteHeader } from "@/components/chrome/SiteHeader";
 import { HiringToast } from "@/components/chrome/HiringToast";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { NewsletterButton } from "@/components/chrome/NewsletterButton";
+import NavLoadingOverlay from "@/components/chrome/NavLoadingOverlay";
 import { getSiteSettings } from "@/lib/data/site";
 import { getJobs } from "@/lib/data/jobs";
 
@@ -18,9 +20,11 @@ export default async function SiteLayout({
       <TornFilters />
       <GrainOverlay />
       <SiteHeader settings={settings} />
+      <NavLoadingOverlay />
       <HiringToast jobsCount={jobs.length} />
       {children}
       <SiteFooter settings={settings} />
+      <NewsletterButton />
     </>
   );
 }

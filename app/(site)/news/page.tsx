@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/chrome/PageHeader";
 import { RaggedPanel } from "@/components/ui/RaggedPanel";
 import { Reveal } from "@/components/anim/Reveal";
 import { GrungeEdge } from "@/components/ui/GrungeEdge";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export const metadata: Metadata = {
   title: "News",
@@ -21,7 +22,7 @@ function fmt(date: string) {
 export default async function NewsPage() {
   const [lead, ...rest] = await getNews();
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="Latest updates"
         title={"Latest\nnews"}
@@ -66,6 +67,21 @@ export default async function NewsPage() {
             </li>
           ))}
         </ul>
+
+        {/* newsletter */}
+        <Reveal className="mt-12">
+          <RaggedPanel surface="olive" bodyClassName="p-8 md:p-12">
+            <div className="md:flex md:items-end md:justify-between md:gap-12">
+              <div>
+                <p className="label text-canvas-deep/70">Don&apos;t miss a thing</p>
+                <h2 className="font-heading mt-2 max-w-[24ch] text-3xl text-paper md:text-4xl">
+                  Get devlogs and releases in your inbox.
+                </h2>
+              </div>
+              <NewsletterForm tone="sage" className="mt-6 md:mt-0 md:w-md" />
+            </div>
+          </RaggedPanel>
+        </Reveal>
       </section>
       <GrungeEdge color="var(--color-paper)" className="translate-y-10" />
     </main>

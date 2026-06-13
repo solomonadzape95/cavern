@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { count } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { games, news, jobs, team } from "@/db/schema";
+import { games, news, jobs, team, newsletterSubscribers } from "@/db/schema";
 import { requireAdmin, canAccess } from "@/lib/auth/dal";
 import { RESOURCE_NAV } from "@/lib/admin/nav";
 import type { AdminResource } from "@/db/schema";
@@ -21,6 +21,13 @@ export default async function AdminDashboard() {
 
   const counts = await Promise.all(
     items.map(async (item) => {
+      if (item.resource === "newsletter") {
+        const [{ value }] = await db
+          .select({ value: count() })
+          .from(newsletterSubscribers)
+          .where(eq(newsletterSubscribers.status, "subscribed"));
+        return value;
+      }
       const table = TABLES[item.resource];
       if (!table) return null;
       const [{ value }] = await db.select({ value: count() }).from(table);
@@ -47,7 +54,7 @@ export default async function AdminDashboard() {
           >
             <p className="label text-canvas/60">{item.label}</p>
             {counts[i] !== null && (
-              <p className="font-body mt-2 text-(length:--text-heading) text-canvas-deep">
+              <p className="font-display mt-2 text-(length:--text-heading) text-canvas-deep">
                 {counts[i]}
               </p>
             )}

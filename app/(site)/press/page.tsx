@@ -6,6 +6,7 @@ import { GrungeButton } from "@/components/ui/GrungeButton";
 import { RaggedPanel } from "@/components/ui/RaggedPanel";
 import { Reveal } from "@/components/anim/Reveal";
 import { GrungeEdge } from "@/components/ui/GrungeEdge";
+import { NewsletterForm } from "@/components/forms/NewsletterForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -34,7 +35,7 @@ export default async function PressPage() {
   ];
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="Kit & assets"
         title={"Press\nkit"}
@@ -110,6 +111,21 @@ export default async function PressPage() {
             </RaggedPanel>
           </Reveal>
         </div>
+
+        {/* newsletter */}
+        <Reveal className="mt-14 md:mt-20">
+          <RaggedPanel surface="olive" bodyClassName="p-8 md:p-12">
+            <div className="md:flex md:items-end md:justify-between md:gap-12">
+              <div>
+                <p className="label text-canvas-deep/70">Press &amp; studio updates</p>
+                <h2 className="font-heading mt-2 max-w-[24ch] text-3xl text-paper md:text-4xl">
+                  Get the newsletter for announcements before anyone else.
+                </h2>
+              </div>
+              <NewsletterForm tone="sage" className="mt-6 md:mt-0 md:w-1/2" />
+            </div>
+          </RaggedPanel>
+        </Reveal>
       </section>
       <GrungeEdge color="var(--color-paper)" className="translate-y-10" />
     </main>
