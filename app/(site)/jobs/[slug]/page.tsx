@@ -35,7 +35,7 @@ export default async function JobPage({
   if (!job) notFound();
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow={`${job.discipline} · ${job.type} · ${job.location}`}
         title={job.title}
@@ -81,7 +81,12 @@ export default async function JobPage({
               </p>
               <div className="mt-6">
                 {job.formLink ? (
-                  <GrungeButton href={job.formLink} target="_blank" rel="noreferrer" size="md">
+                  <GrungeButton
+                    href={job.formLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    size="md"
+                  >
                     Continue
                   </GrungeButton>
                 ) : (

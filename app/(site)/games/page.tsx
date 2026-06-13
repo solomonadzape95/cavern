@@ -21,7 +21,7 @@ export default async function GamesPage() {
   const games = await getGames();
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="Our games"
         title={"Games"}
@@ -63,7 +63,7 @@ export default async function GamesPage() {
           ))}
         </ul>
       </section>
-      <GrungeEdge color="var(--color-paper)" className="translate-y-10"/>
+      <GrungeEdge color="var(--color-paper)" className="translate-y-10" />
     </main>
   );
 }

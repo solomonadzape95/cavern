@@ -44,7 +44,7 @@ export default async function AboutPage() {
   ];
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="About us"
         title={"The\nstudio"}
@@ -72,7 +72,7 @@ export default async function AboutPage() {
                     delay={i * 0.06}
                     className={`flex flex-col justify-between p-7 md:p-8 ${tone}`}
                   >
-                    <p className="font-body text-6xl leading-none md:text-7xl">
+                    <p className="font-display text-6xl leading-none md:text-7xl">
                       {s.n}
                     </p>
                     <p className="uppercase text-lg md:text-xl mt-6 opacity-80">{s.l}</p>

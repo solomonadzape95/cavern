@@ -15,7 +15,7 @@ export default async function JobsPage() {
   const [jobs, settings] = await Promise.all([getJobs(), getSiteSettings()]);
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="Join Us"
         title={"We're\nhiring"}
@@ -48,8 +48,8 @@ export default async function JobsPage() {
         </ul>
 
         <Reveal className="mt-16 max-w-[55ch] text-sage">
-          Don&apos;t see your role but think you&apos;d be a good fit? Send
-          your work to{" "}
+          Don&apos;t see your role but think you&apos;d be a good fit? Send your
+          work to{" "}
           <a
             href={`mailto:${settings.email}`}
             className="text-paper underline decoration-moss decoration-2 underline-offset-4"

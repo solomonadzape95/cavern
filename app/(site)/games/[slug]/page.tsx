@@ -35,7 +35,7 @@ export default async function GamePage({
   if (!game) notFound();
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow={`${game.year} · ${game.genre}`}
         title={game.title}

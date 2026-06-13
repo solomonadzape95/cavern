@@ -7,7 +7,14 @@ import "./globals.css";
 // Grand Canyon — display face for big all-caps headers only
 const display = localFont({
   variable: "--font-grand",
-  src: "../public/fonts/Grand-Canyon-Free.otf",
+  // Grand Canyon
+  // src: "../public/fonts/Grand-Canyon-Free.otf",
+  // Gorilla
+  // src: "../public/fonts/Gorilla.ttf",
+  // BenjaminFranklin
+  // src: "../public/fonts/BenjaminFranklin.ttf",
+  // Renju
+  src: "../public/fonts/Renju.otf",
   display: "swap",
 });
 

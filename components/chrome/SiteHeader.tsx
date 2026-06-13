@@ -226,7 +226,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                 <h2 className="font-display text-paper text-center text-[4rem] sm:text-[8rem] md:text-[11.5rem] leading-tight">
                   CAVERN STUDIOS.
                 </h2>
-                <div className="mt-6 flex flex-wrap items-center gap-5 border-t border-sage/20 pt-5">
+                <div className="mt-6 flex flex-wrap items-center gap-5 border-t border-sage/20 pt-5 mb-(--banner-h)">
                   {socials.map((s) => (
                     <a
                       key={s.label}

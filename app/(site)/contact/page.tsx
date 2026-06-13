@@ -41,7 +41,7 @@ export default async function ContactPage() {
   ];
 
   return (
-    <main className="relative">
+    <main className="relative bg-canvas-deep">
       <PageHeader
         eyebrow="Say hello"
         title={"Get in\ntouch"}
