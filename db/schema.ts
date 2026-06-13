@@ -64,6 +64,8 @@ export const games = pgTable("games", {
   description: jsonb().$type<string[]>().notNull().default([]),
   platforms: jsonb().$type<string[]>().notNull().default([]),
   features: jsonb().$type<string[]>().notNull().default([]),
+  // Cover art URL — falls back to generated placeholder art (coverArt) when unset.
+  image: text(),
   sortOrder: integer().notNull().default(0),
   ...timestamps,
 });
@@ -99,10 +101,9 @@ export const team = pgTable("team", {
   id: uuid().primaryKey().defaultRandom(),
   name: text().notNull(),
   role: text().notNull(),
-  seed: text().notNull(),
   bio: text().notNull(),
   links: jsonb().$type<Link[]>().notNull().default([]),
-  // Photo URL — falls back to a generated avatar (keyed by `seed`) when unset.
+  // Photo URL — falls back to a generated avatar (keyed by `name`) when unset.
   image: text(),
   sortOrder: integer().notNull().default(0),
   ...timestamps,

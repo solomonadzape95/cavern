@@ -7,12 +7,12 @@ import { z } from "zod";
 import { db } from "@/db";
 import { team } from "@/db/schema";
 import { requirePermission } from "@/lib/auth/dal";
-import { getGroupList, getOptionalString } from "@/lib/forms";
+import { getGroupList } from "@/lib/forms";
+import { uploadImage } from "@/lib/storage";
 
 const memberSchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
   role: z.string().trim().min(1, "Role is required"),
-  seed: z.string().trim().min(1, "Seed is required"),
   bio: z.string().trim().min(1, "Bio is required"),
 });
 
@@ -20,18 +20,22 @@ function parseMember(formData: FormData) {
   const fields = memberSchema.parse({
     name: formData.get("name"),
     role: formData.get("role"),
-    seed: formData.get("seed"),
     bio: formData.get("bio"),
   });
 
   return {
     ...fields,
-    image: getOptionalString(formData, "image") ?? null,
     links: getGroupList<{ label: string; href: string }>(formData, "links", [
       "label",
       "href",
     ]),
   };
+}
+
+async function uploadMemberImage(formData: FormData): Promise<string | undefined> {
+  const file = formData.get("imageFile");
+  if (!(file instanceof File) || file.size === 0) return undefined;
+  return uploadImage(file, "team");
 }
 
 function revalidateTeam() {
@@ -43,8 +47,9 @@ function revalidateTeam() {
 export async function createMember(formData: FormData) {
   await requirePermission("team");
   const data = parseMember(formData);
+  const image = await uploadMemberImage(formData);
 
-  await db.insert(team).values(data);
+  await db.insert(team).values({ ...data, image: image ?? null });
 
   revalidateTeam();
   redirect("/admin/team");
@@ -53,8 +58,12 @@ export async function createMember(formData: FormData) {
 export async function updateMember(id: string, formData: FormData) {
   await requirePermission("team");
   const data = parseMember(formData);
+  const image = await uploadMemberImage(formData);
 
-  await db.update(team).set(data).where(eq(team.id, id));
+  await db
+    .update(team)
+    .set({ ...data, ...(image && { image }) })
+    .where(eq(team.id, id));
 
   revalidateTeam();
   redirect("/admin/team");

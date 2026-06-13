@@ -274,7 +274,6 @@ const TEAM = [
   {
     name: "Ama Boateng",
     role: "Studio Director",
-    seed: "Ama-Boateng",
     bio: "Keeps the studio on track and the scope honest.",
     links: [
       { label: "Bluesky", href: "https://bsky.app" },
@@ -284,7 +283,6 @@ const TEAM = [
   {
     name: "Tomas Reyes",
     role: "Creative Director",
-    seed: "Tomas-Reyes",
     bio: "Designs the worlds, then makes you want to live in them.",
     links: [
       { label: "ArtStation", href: "https://artstation.com" },
@@ -294,7 +292,6 @@ const TEAM = [
   {
     name: "Nadia Okonkwo",
     role: "Lead Engineer",
-    seed: "Nadia-Okonkwo",
     bio: "Keeps everything running smoothly at 60fps.",
     links: [
       { label: "GitHub", href: "https://github.com" },
@@ -304,7 +301,6 @@ const TEAM = [
   {
     name: "Bjorn Haugen",
     role: "Audio Director",
-    seed: "Bjorn-Haugen",
     bio: "Records cellos in stairwells. Worth it.",
     links: [
       { label: "SoundCloud", href: "https://soundcloud.com" },
@@ -314,7 +310,6 @@ const TEAM = [
   {
     name: "Priya Nair",
     role: "Lead Animator",
-    seed: "Priya-Nair",
     bio: "Four thousand frames and counting.",
     links: [
       { label: "ArtStation", href: "https://artstation.com" },
@@ -324,7 +319,6 @@ const TEAM = [
   {
     name: "Marco Silva",
     role: "Producer",
-    seed: "Marco-Silva",
     bio: "Translates 'soon' into actual dates.",
     links: [
       { label: "LinkedIn", href: "https://linkedin.com" },

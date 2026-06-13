@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { games, gameStatus, gameAccent } from "@/db/schema";
 import { requirePermission } from "@/lib/auth/dal";
 import { getStringList } from "@/lib/forms";
+import { uploadImage } from "@/lib/storage";
 
 const gameSchema = z.object({
   slug: z
@@ -45,6 +46,12 @@ function parseGame(formData: FormData) {
   };
 }
 
+async function uploadGameImage(formData: FormData): Promise<string | undefined> {
+  const file = formData.get("imageFile");
+  if (!(file instanceof File) || file.size === 0) return undefined;
+  return uploadImage(file, "games");
+}
+
 function revalidateGames(slug?: string) {
   revalidatePath("/games");
   revalidatePath("/");
@@ -55,8 +62,9 @@ function revalidateGames(slug?: string) {
 export async function createGame(formData: FormData) {
   await requirePermission("games");
   const data = parseGame(formData);
+  const image = await uploadGameImage(formData);
 
-  await db.insert(games).values(data);
+  await db.insert(games).values({ ...data, image });
 
   revalidateGames(data.slug);
   redirect("/admin/games");
@@ -65,8 +73,12 @@ export async function createGame(formData: FormData) {
 export async function updateGame(id: string, formData: FormData) {
   await requirePermission("games");
   const data = parseGame(formData);
+  const image = await uploadGameImage(formData);
 
-  await db.update(games).set(data).where(eq(games.id, id));
+  await db
+    .update(games)
+    .set({ ...data, ...(image && { image }) })
+    .where(eq(games.id, id));
 
   revalidateGames(data.slug);
   redirect("/admin/games");

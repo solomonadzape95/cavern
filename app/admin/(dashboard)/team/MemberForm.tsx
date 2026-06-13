@@ -1,7 +1,9 @@
-import { Field, TextInput, TextArea } from "@/components/admin/fields";
+import Image from "next/image";
+import { Field, TextInput, TextArea, FileInput } from "@/components/admin/fields";
 import { RepeatableGroupList } from "@/components/admin/RepeatableGroupList";
 import { SubmitButton } from "@/components/admin/SubmitButton";
 import type { Member } from "@/db/schema";
+import { avatar } from "@/lib/art";
 
 export function MemberForm({
   member,
@@ -20,16 +22,20 @@ export function MemberForm({
           <TextInput name="role" defaultValue={member?.role} required />
         </Field>
         <Field
-          label="Photo URL"
-          hint="Link to their photo. Leave blank to use a generated avatar instead."
+          label="Photo"
+          hint="Optional — falls back to a generated avatar based on their name."
         >
-          <TextInput type="url" name="image" defaultValue={member?.image ?? ""} />
-        </Field>
-        <Field
-          label="Avatar key"
-          hint="A unique word (e.g. their name) used to generate their placeholder avatar if no photo is set"
-        >
-          <TextInput name="seed" defaultValue={member?.seed} required />
+          <div className="flex items-center gap-4">
+            <Image
+              src={member?.image || avatar(member?.name || "preview")}
+              alt=""
+              width={64}
+              height={64}
+              className="size-16 shrink-0 border border-sage/30 object-cover"
+              unoptimized
+            />
+            <FileInput name="imageFile" accept="image/*" className="flex-1" />
+          </div>
         </Field>
       </div>
 

@@ -33,7 +33,7 @@ export function GamesSection({ games }: { games: Game[] }) {
                 media={
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={coverArt(game)}
+                    src={game.image || coverArt(game)}
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover"
                   />

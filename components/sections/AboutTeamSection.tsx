@@ -31,7 +31,7 @@ export function AboutTeamSection({ team }: { team: Member[] }) {
               media={
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={m.image || avatar(m.seed)}
+                  src={m.image || avatar(m.name)}
                   alt={m.name}
                   className="absolute inset-0 h-full w-full object-cover opacity-90"
                 />

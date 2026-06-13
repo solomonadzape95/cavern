@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { CavernTexture } from "@/components/ui/CavernTexture";
 import { MaskReveal, Reveal } from "@/components/anim/Reveal";
+import { heroTitleSize } from "@/lib/text";
 
 /**
  * Peripheral-page header: 75vh textured banner carrying the page name,
@@ -39,8 +40,9 @@ export function PageHeader({
         <Reveal className="label mb-4 text-sage">{eyebrow}</Reveal>
         <MaskReveal
           lines={title.split("\n")}
-          className="font-display text-paper text-center text-(length:--text-mega-lg)"
+          className="font-display text-paper text-center"
           lineClassName="text-center"
+          style={{ fontSize: heroTitleSize(title) }}
         />
         {lead && (
           <Reveal

@@ -44,3 +44,17 @@ export function Select(props: ComponentProps<"select">) {
     <select {...props} className={cn(controlClass, props.className)} />
   );
 }
+
+export function FileInput(props: ComponentProps<"input">) {
+  return (
+    <input
+      {...props}
+      type="file"
+      className={cn(
+        controlClass,
+        "cursor-pointer file:mr-3 file:cursor-pointer file:border-0 file:bg-moss/20 file:px-3 file:py-1.5 file:text-paper",
+        props.className,
+      )}
+    />
+  );
+}

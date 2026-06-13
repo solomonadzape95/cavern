@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -36,12 +36,14 @@ export function MaskReveal({
   lines,
   className,
   lineClassName,
+  style,
   delay = 0,
   stagger = 0.12,
 }: {
   lines: string[];
   className?: string;
   lineClassName?: string;
+  style?: CSSProperties;
   delay?: number;
   stagger?: number;
 }) {
@@ -57,7 +59,7 @@ export function MaskReveal({
 
   if (reduce) {
     return (
-      <span className={className}>
+      <span className={className} style={style}>
         {lines.map((l, i) => (
           <span key={i} className={`block ${lineClassName ?? ""}`}>
             {l}
@@ -70,6 +72,7 @@ export function MaskReveal({
   return (
     <motion.span
       className={className}
+      style={style}
       variants={container}
       initial="hidden"
       whileInView="show"

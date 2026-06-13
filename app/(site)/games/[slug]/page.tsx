@@ -40,7 +40,7 @@ export default async function GamePage({
         eyebrow={`${game.year} · ${game.genre}`}
         title={game.title}
         lead={`“${game.tagline}”`}
-        imageSrc={coverArt(game)}
+        imageSrc={game.image || coverArt(game)}
         backHref="/games"
         backLabel="All games"
       />
