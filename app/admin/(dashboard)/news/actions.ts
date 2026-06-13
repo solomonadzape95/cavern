@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -36,6 +36,7 @@ function parsePost(formData: FormData) {
 
 function revalidateNews() {
   revalidatePath("/news");
+  updateTag("news");
 }
 
 export async function createPost(formData: FormData) {

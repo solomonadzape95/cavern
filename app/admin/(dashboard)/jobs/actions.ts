@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -45,6 +45,7 @@ function revalidateJobs(slug?: string) {
   revalidatePath("/jobs");
   revalidatePath("/");
   if (slug) revalidatePath(`/jobs/${slug}`);
+  updateTag("jobs");
 }
 
 export async function createJob(formData: FormData) {

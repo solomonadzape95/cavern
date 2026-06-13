@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -49,6 +49,7 @@ function revalidateGames(slug?: string) {
   revalidatePath("/games");
   revalidatePath("/");
   if (slug) revalidatePath(`/games/${slug}`);
+  updateTag("games");
 }
 
 export async function createGame(formData: FormData) {

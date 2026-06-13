@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 import { db } from "@/db";
 import { siteSettings, type SiteSettings } from "@/db/schema";
 
@@ -34,16 +35,20 @@ export const DEFAULT_SITE: Omit<SiteSettings, "createdAt" | "updatedAt"> = {
   ],
 };
 
-export async function getSiteSettings(): Promise<SiteSettings> {
-  const [row] = await db
-    .select()
-    .from(siteSettings)
-    .where(eq(siteSettings.id, SINGLETON_ID))
-    .limit(1);
-  if (row) return row;
-  return {
-    ...DEFAULT_SITE,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-}
+export const getSiteSettings = unstable_cache(
+  async (): Promise<SiteSettings> => {
+    const [row] = await db
+      .select()
+      .from(siteSettings)
+      .where(eq(siteSettings.id, SINGLETON_ID))
+      .limit(1);
+    if (row) return row;
+    return {
+      ...DEFAULT_SITE,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+  },
+  ["site-settings"],
+  { tags: ["site"], revalidate: 3600 },
+);

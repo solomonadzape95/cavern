@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -37,6 +37,7 @@ function parseMember(formData: FormData) {
 function revalidateTeam() {
   revalidatePath("/");
   revalidatePath("/about");
+  updateTag("team");
 }
 
 export async function createMember(formData: FormData) {
