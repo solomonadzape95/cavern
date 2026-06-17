@@ -7,16 +7,13 @@ import { z } from "zod";
 import { db } from "@/db";
 import { games, gameStatus, gameAccent } from "@/db/schema";
 import { requirePermission } from "@/lib/auth/dal";
-import { getStringList } from "@/lib/forms";
+import { getStringList, getSlug } from "@/lib/forms";
 import { uploadImage } from "@/lib/storage";
 
 const gameSchema = z.object({
   slug: z
     .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "Slug is required")
-    .regex(/^[a-z0-9-]+$/, "Use lowercase letters, numbers, and hyphens only"),
+    .min(1, "Add a title or page URL so we can build a link"),
   title: z.string().trim().min(1, "Title is required"),
   year: z.string().trim().min(1, "Year is required"),
   status: z.enum(gameStatus.enumValues),
@@ -28,7 +25,7 @@ const gameSchema = z.object({
 
 function parseGame(formData: FormData) {
   const fields = gameSchema.parse({
-    slug: formData.get("slug"),
+    slug: getSlug(formData),
     title: formData.get("title"),
     year: formData.get("year"),
     status: formData.get("status"),

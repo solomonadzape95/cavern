@@ -7,15 +7,12 @@ import { z } from "zod";
 import { db } from "@/db";
 import { jobs } from "@/db/schema";
 import { requirePermission } from "@/lib/auth/dal";
-import { getStringList, getOptionalString } from "@/lib/forms";
+import { getStringList, getOptionalString, getSlug } from "@/lib/forms";
 
 const jobSchema = z.object({
   slug: z
     .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "Slug is required")
-    .regex(/^[a-z0-9-]+$/, "Use lowercase letters, numbers, and hyphens only"),
+    .min(1, "Add a title or page URL so we can build a link"),
   title: z.string().trim().min(1, "Title is required"),
   discipline: z.string().trim().min(1, "Discipline is required"),
   type: z.string().trim().min(1, "Type is required"),
@@ -25,7 +22,7 @@ const jobSchema = z.object({
 
 function parseJob(formData: FormData) {
   const fields = jobSchema.parse({
-    slug: formData.get("slug"),
+    slug: getSlug(formData),
     title: formData.get("title"),
     discipline: formData.get("discipline"),
     type: formData.get("type"),

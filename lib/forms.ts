@@ -1,3 +1,31 @@
+/**
+ * Normalizes arbitrary text into a URL slug: strips accents, lowercases, and
+ * collapses any run of non-alphanumeric characters into a single hyphen, with
+ * no leading or trailing hyphens. Returns "" when there's nothing usable.
+ *
+ *   slugify("Hollow Lantern")    // "hollow-lantern"
+ *   slugify("  Café del Mar! ")  // "cafe-del-mar"
+ */
+export function slugify(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Builds a slug from the `slug` field, falling back to the `title` field when
+ * it's blank — so editors can leave the URL empty or type it loosely (spaces,
+ * capitals) and still get a clean, valid slug.
+ */
+export function getSlug(formData: FormData, fallbackField = "title"): string {
+  const fromSlug = slugify(String(formData.get("slug") ?? ""));
+  if (fromSlug) return fromSlug;
+  return slugify(String(formData.get(fallbackField) ?? ""));
+}
+
 /** Reads every value submitted under `name` (from a RepeatableTextList), trims, and drops blanks. */
 export function getStringList(formData: FormData, name: string): string[] {
   return formData

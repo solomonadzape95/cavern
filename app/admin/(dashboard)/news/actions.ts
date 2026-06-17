@@ -7,14 +7,12 @@ import { z } from "zod";
 import { db } from "@/db";
 import { news, newsKind } from "@/db/schema";
 import { requirePermission } from "@/lib/auth/dal";
+import { getSlug } from "@/lib/forms";
 
 const postSchema = z.object({
   slug: z
     .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "Slug is required")
-    .regex(/^[a-z0-9-]+$/, "Use lowercase letters, numbers, and hyphens only"),
+    .min(1, "Add a title or page URL so we can build a link"),
   title: z.string().trim().min(1, "Title is required"),
   date: z
     .string()
@@ -26,7 +24,7 @@ const postSchema = z.object({
 
 function parsePost(formData: FormData) {
   return postSchema.parse({
-    slug: formData.get("slug"),
+    slug: getSlug(formData),
     title: formData.get("title"),
     date: formData.get("date"),
     kind: formData.get("kind"),

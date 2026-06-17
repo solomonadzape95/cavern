@@ -20,14 +20,9 @@ export function GameForm({
         </Field>
         <Field
           label="Page URL"
-          hint="The address for this game's page, e.g. /games/hollow-lantern. Lowercase letters, numbers, and hyphens only."
+          hint="The address for this game's page, e.g. /games/hollow-lantern. Leave blank to generate it from the title — spaces and capitals are tidied automatically."
         >
-          <TextInput
-            name="slug"
-            defaultValue={game?.slug}
-            pattern="[a-z0-9-]+"
-            required
-          />
+          <TextInput name="slug" defaultValue={game?.slug} />
         </Field>
         <Field label="Year">
           <TextInput name="year" defaultValue={game?.year} required />

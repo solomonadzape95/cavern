@@ -17,14 +17,9 @@ export function PostForm({
         </Field>
         <Field
           label="Page URL"
-          hint="The address for this post's page, e.g. /news/hollow-lantern-devlog-1."
+          hint="The address for this post's page, e.g. /news/hollow-lantern-devlog-1. Leave blank to generate it from the title — spaces and capitals are tidied automatically."
         >
-          <TextInput
-            name="slug"
-            defaultValue={post?.slug}
-            pattern="[a-z0-9-]+"
-            required
-          />
+          <TextInput name="slug" defaultValue={post?.slug} />
         </Field>
         <Field label="Date">
           <TextInput

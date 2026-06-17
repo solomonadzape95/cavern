@@ -18,14 +18,9 @@ export function JobForm({
         </Field>
         <Field
           label="Page URL"
-          hint="The address for this job's page, e.g. /jobs/gameplay-programmer."
+          hint="The address for this job's page, e.g. /jobs/gameplay-programmer. Leave blank to generate it from the title — spaces and capitals are tidied automatically."
         >
-          <TextInput
-            name="slug"
-            defaultValue={job?.slug}
-            pattern="[a-z0-9-]+"
-            required
-          />
+          <TextInput name="slug" defaultValue={job?.slug} />
         </Field>
         <Field label="Discipline" hint="e.g. Engineering, Art, Design">
           <TextInput name="discipline" defaultValue={job?.discipline} required />
