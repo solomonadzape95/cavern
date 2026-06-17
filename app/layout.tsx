@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
+import { getSiteSettings } from "@/lib/data/site";
 import "./globals.css";
 
 // Grand Canyon — display face for big all-caps headers only
@@ -26,14 +27,16 @@ const body = EB_Garamond({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Cavern Studios — Small team. Big worlds.",
-    template: "%s · Cavern Studios",
-  },
-  description:
-    "Cavern Studios is a small game studio making atmospheric worlds with rough edges and a lot of heart.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title: {
+      default: `${settings.name} — ${settings.tagline}`,
+      template: `%s · ${settings.name}`,
+    },
+    description: settings.blurb,
+  };
+}
 
 export default function RootLayout({
   children,

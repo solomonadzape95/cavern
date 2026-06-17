@@ -11,7 +11,15 @@ const COLS = 8;
 const ROWS = 6;
 const TILES = Array.from({ length: COLS * ROWS });
 
-export function Hero({ founded, tagline }: { founded: number; tagline: string }) {
+export function Hero({
+  name,
+  founded,
+  tagline,
+}: {
+  name: string;
+  founded: number;
+  tagline: string;
+}) {
   const root = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -66,7 +74,7 @@ export function Hero({ founded, tagline }: { founded: number; tagline: string })
             delay={0.9}
             className="text-md uppercase font-semibold mb-6 text-sage"
           >
-            Cavern Studios · est. {founded}
+            {name} · est. {founded}
           </Reveal>
 
           <h1 className="font-display text-paper text-(length:--text-mega) drop-shadow-[0_2px_24px_rgba(20,26,19,0.6)]">
@@ -77,11 +85,11 @@ export function Hero({ founded, tagline }: { founded: number; tagline: string })
             />
           </h1>
 
-          {/* <Reveal delay={1.3} className="mt-6">
+          <Reveal delay={1.3} className="mt-6">
             <span className="font-semibold text-md uppercase label text-sage">
               {tagline}
             </span>
-          </Reveal> */}
+          </Reveal>
 
           <Reveal
             delay={1.5}

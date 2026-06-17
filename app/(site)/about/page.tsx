@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getSiteSettings } from "@/lib/data/site";
 import { getTeam } from "@/lib/data/team";
+import { getGames } from "@/lib/data/games";
 import { PageHeader } from "@/components/chrome/PageHeader";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { Reveal } from "@/components/anim/Reveal";
@@ -34,12 +35,16 @@ const VALUES = [
 ];
 
 export default async function AboutPage() {
-  const [settings, team] = await Promise.all([getSiteSettings(), getTeam()]);
+  const [settings, team, games] = await Promise.all([
+    getSiteSettings(),
+    getTeam(),
+    getGames(),
+  ]);
 
   const STATS = [
-    { n: "4", l: "Games shipped & building" },
+    { n: String(games.length), l: "Games shipped & building" },
     { n: `${new Date().getFullYear() - settings.founded}`, l: "Years running" },
-    { n: "6", l: "People on the team" },
+    { n: String(team.length), l: "People on the team" },
     { n: "1", l: "Cavern" },
   ];
 

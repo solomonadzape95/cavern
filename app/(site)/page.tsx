@@ -18,10 +18,14 @@ export default async function Home() {
 
   return (
     <>
-      <Hero founded={settings.founded} tagline={settings.tagline} />
+      <Hero
+        name={settings.name}
+        founded={settings.founded}
+        tagline={settings.tagline}
+      />
       <GamesSection games={games} />
       <ServicesSection services={services} />
-      <TeamSection team={team} />
+      {team.length > 0 && <TeamSection team={team} />}
       <ContactSection email={settings.email} location={settings.location} />
     </>
   );

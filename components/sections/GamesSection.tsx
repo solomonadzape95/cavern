@@ -6,6 +6,10 @@ import { GrungeButton } from "@/components/ui/GrungeButton";
 import { GrungeFrame } from "@/components/ui/GrungeFrame";
 
 export function GamesSection({ games }: { games: Game[] }) {
+  // Nothing shipped or in the works yet — drop the whole section rather than
+  // render an empty shelf on the landing page.
+  if (games.length === 0) return null;
+
   return (
     <section
       id="games"

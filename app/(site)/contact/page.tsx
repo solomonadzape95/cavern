@@ -5,11 +5,13 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { Reveal } from "@/components/anim/Reveal";
 import { GrungeEdge } from "@/components/ui/GrungeEdge";
 
-export const metadata: Metadata = {
-  title: "Contact & Sponsorships",
-  description:
-    "Reach Cavern Studios — pitches, partnerships, sponsorships, and press.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  return {
+    title: "Contact & Sponsorships",
+    description: `Reach ${settings.name} — pitches, partnerships, sponsorships, and press.`,
+  };
+}
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();

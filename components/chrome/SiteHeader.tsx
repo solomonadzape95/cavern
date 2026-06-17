@@ -223,8 +223,8 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                 transition={{ delay: 0.45, duration: 0.5 }}
                 className="mt-auto pt-10"
               >
-                <h2 className="font-display text-paper text-center text-[4rem] sm:text-[8rem] md:text-[11.5rem] leading-tight">
-                  CAVERN STUDIOS.
+                <h2 className="font-display text-paper text-center text-[4rem] sm:text-[8rem] md:text-[11.5rem] leading-tight uppercase">
+                  {name}.
                 </h2>
                 <div className="mt-6 flex flex-wrap items-center gap-5 border-t border-sage/20 pt-5 mb-(--banner-h)">
                   {socials.map((s) => (

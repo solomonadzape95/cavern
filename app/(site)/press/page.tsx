@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getGames } from "@/lib/data/games";
 import { getSiteSettings } from "@/lib/data/site";
+import { getTeam } from "@/lib/data/team";
 import { PageHeader } from "@/components/chrome/PageHeader";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { RaggedPanel } from "@/components/ui/RaggedPanel";
@@ -24,12 +25,16 @@ const ASSETS = [
 ];
 
 export default async function PressPage() {
-  const [games, settings] = await Promise.all([getGames(), getSiteSettings()]);
+  const [games, settings, team] = await Promise.all([
+    getGames(),
+    getSiteSettings(),
+    getTeam(),
+  ]);
 
   const FACTS: { k: string; v: string }[] = [
     { k: "Founded", v: String(settings.founded) },
     { k: "Based", v: settings.location },
-    { k: "Team size", v: "6" },
+    { k: "Team size", v: String(team.length) },
     { k: "Titles", v: String(games.length) },
     { k: "Press contact", v: settings.pressEmail },
   ];
@@ -63,9 +68,10 @@ export default async function PressPage() {
             <p className="mt-4 max-w-[60ch] leading-relaxed text-paper/90">
               {settings.name} is a small, remote-first game studio founded in{" "}
               {settings.founded}, making atmospheric, hand-made games with rough
-              edges and a lot of heart. From the light-starved descent of Hollow
-              Lantern to the growing ruins of Moss Cathedral, Cavern builds
-              worlds you feel as much as play.
+              edges and a lot of heart.{" "}
+              {games.length >= 2
+                ? `From ${games[0].title} to ${games[games.length - 1].title}, ${settings.name} builds worlds you feel as much as play.`
+                : `${settings.name} builds worlds you feel as much as play.`}
             </p>
           </Reveal>
 
