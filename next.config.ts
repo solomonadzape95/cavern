@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Image uploads POST through a Server Action as FormData; the default body
+  // cap is 1MB, so raise it to allow larger cover art / photos.
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
   // Pin the workspace root — a stray lockfile in the home dir otherwise
   // makes Next infer the wrong root.
   images: {

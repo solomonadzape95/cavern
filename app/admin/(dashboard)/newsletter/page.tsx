@@ -3,7 +3,7 @@ import { requirePermission } from "@/lib/auth/dal";
 import { getSubscribers, getCampaigns } from "@/lib/data/newsletter";
 import { DataTable } from "@/components/admin/DataTable";
 import { DeleteButton } from "@/components/admin/DeleteButton";
-import { deleteSubscriber } from "./actions";
+import { deleteSubscriber, deleteCampaign } from "./actions";
 
 function fmtDate(date: Date | string | null) {
   if (!date) return "—";
@@ -42,6 +42,13 @@ export default async function AdminNewsletterPage() {
             { header: "Recipients", cell: (c) => c.recipientCount },
             { header: "Sent", cell: (c) => fmtDate(c.sentAt) },
           ]}
+          rowActions={(c) => (
+            <DeleteButton
+              action={deleteCampaign.bind(null, c.id)}
+              label="Delete"
+              confirmMessage={`Delete the campaign "${c.subject}"? This only removes it from the history — emails already sent can't be recalled.`}
+            />
+          )}
           empty="No campaigns sent yet."
         />
       </section>

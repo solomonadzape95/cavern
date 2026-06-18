@@ -1,4 +1,5 @@
-import { Field, TextInput, TextArea } from "@/components/admin/fields";
+import { Field, TextInput } from "@/components/admin/fields";
+import { MarkdownField } from "@/components/admin/MarkdownField";
 import { SubmitButton } from "@/components/admin/SubmitButton";
 
 export function CampaignForm({
@@ -14,9 +15,28 @@ export function CampaignForm({
         <TextInput name="subject" required />
       </Field>
 
-      <Field label="Message" hint="Plain text — separate paragraphs with a blank line.">
-        <TextArea name="body" required className="min-h-64" />
+      <Field
+        label="Message"
+        hint="Markdown — use the toolbar for headings, bold, lists, and links. The preview shows how it'll read."
+      >
+        <MarkdownField name="body" />
       </Field>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
+          label="Button label"
+          hint="Optional — adds a grunge-style button to the email."
+        >
+          <TextInput name="ctaLabel" placeholder="Play the demo" />
+        </Field>
+        <Field label="Button link" hint="Where the button points, e.g. https://…">
+          <TextInput
+            name="ctaUrl"
+            type="url"
+            placeholder="https://cavern.studio/games"
+          />
+        </Field>
+      </div>
 
       <SubmitButton pendingLabel="Sending…">
         Send to {recipientCount} subscriber{recipientCount === 1 ? "" : "s"}

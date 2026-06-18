@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { db } from "@/db";
 import { newsletterSubscribers } from "@/db/schema";
-import { resend, NEWSLETTER_FROM, getSiteUrl } from "@/lib/resend";
+import { sendMail, mailConfigured, getSiteUrl } from "@/lib/mailer";
 import { renderEmailHtml } from "./email";
 import type { NewsletterFormState } from "./types";
 
@@ -31,23 +31,28 @@ export async function subscribeToNewsletter(
     })
     .returning();
 
-  if (process.env.RESEND_API_KEY) {
+  if (mailConfigured) {
     const unsubscribeUrl = `${getSiteUrl()}/newsletter/unsubscribe?token=${subscriber.unsubscribeToken}`;
     try {
-      await resend.emails.send({
-        from: NEWSLETTER_FROM,
+      await sendMail({
         to: email,
         subject: "Welcome to the Cavern newsletter",
+        unsubscribeUrl,
+        text:
+          "You're in.\n\nThanks for subscribing — expect devlogs, releases, " +
+          "and the occasional studio confession in your inbox.",
         html: renderEmailHtml({
           preheader: "Thanks for subscribing to Cavern's newsletter.",
           bodyHtml:
-            '<h1 style="font-size:24px;margin:0 0 16px;">You\'re in.</h1>' +
-            '<p style="margin:0 0 1em;">Thanks for subscribing — expect devlogs, releases, and the occasional studio confession in your inbox.</p>',
+            "<h1>You're in.</h1>" +
+            '<p>Thanks for subscribing — expect devlogs, releases, and the occasional studio confession in your inbox.</p>',
           unsubscribeUrl,
         }),
       });
-    } catch {
-      // Subscription still succeeds even if the welcome email fails to send.
+    } catch (err) {
+      // Subscription still succeeds even if the welcome email fails to send,
+      // but log it so misconfigured SMTP creds aren't silently swallowed.
+      console.error(`Welcome email failed for ${email}`, err);
     }
   }
 
