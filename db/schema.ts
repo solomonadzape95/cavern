@@ -66,6 +66,8 @@ export const games = pgTable("games", {
   features: jsonb().$type<string[]>().notNull().default([]),
   // Cover art URL — falls back to generated placeholder art (coverArt) when unset.
   image: text(),
+  // External store/page link (Play Store, itch.io, Steam…) for the primary CTA.
+  storeUrl: text(),
   sortOrder: integer().notNull().default(0),
   ...timestamps,
 });

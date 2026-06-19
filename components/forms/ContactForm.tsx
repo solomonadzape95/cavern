@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
 import { GrungeButton } from "@/components/ui/GrungeButton";
 import { cn } from "@/lib/cn";
+import { sendContactMessage, type ContactState } from "@/app/(site)/contact/actions";
 
 const field =
   "w-full bg-transparent border-b border-sage/40 py-3 text-paper placeholder:text-sage/50 focus:border-moss focus:outline-none transition-colors";
+
+const initialState: ContactState = { ok: false };
 
 export function ContactForm({
   variant = "full",
 }: {
   variant?: "full" | "compact";
 }) {
-  const [sent, setSent] = useState(false);
+  const [state, formAction, pending] = useActionState(
+    sendContactMessage,
+    initialState,
+  );
 
-  if (sent) {
+  if (state.ok) {
     return (
       <div className="border border-moss/40 bg-canvas-deep/60 p-8">
         <p className="font-heading text-3xl text-paper">Message sent.</p>
@@ -22,25 +28,12 @@ export function ContactForm({
           We read everything. Expect a reply within a few days — sooner if it
           involves something we&apos;d love to make.
         </p>
-        <button
-          type="button"
-          onClick={() => setSent(false)}
-          className="label mt-5 text-moss hover:text-paper"
-        >
-          Send another →
-        </button>
       </div>
     );
   }
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
-      className="flex flex-col gap-5"
-    >
+    <form action={formAction} className="flex flex-col gap-5">
       <div
         className={cn(
           "grid gap-5",
@@ -86,9 +79,15 @@ export function ContactForm({
         />
       </label>
 
+      {state.error && (
+        <p className="text-sm text-red-300" role="alert">
+          {state.error}
+        </p>
+      )}
+
       <div className="mt-1">
-        <GrungeButton type="submit" size="md">
-          Send it
+        <GrungeButton type="submit" size="md" disabled={pending}>
+          {pending ? "Sending…" : "Send it"}
         </GrungeButton>
       </div>
     </form>

@@ -1,3 +1,13 @@
+/** Escapes the five HTML-significant characters so untrusted text is safe in markup. */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 /**
  * Normalizes arbitrary text into a URL slug: strips accents, lowercases, and
  * collapses any run of non-alphanumeric characters into a single hyphen, with

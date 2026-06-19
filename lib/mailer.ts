@@ -46,12 +46,15 @@ export async function sendMail(opts: {
   text?: string;
   /** Adds a List-Unsubscribe header so inboxes show a native unsubscribe control. */
   unsubscribeUrl?: string;
+  /** Reply-To address — lets a recipient reply straight to the original sender. */
+  replyTo?: string;
 }): Promise<void> {
   await getTransport().sendMail({
     from: NEWSLETTER_FROM,
     to: opts.to,
     subject: opts.subject,
     html: opts.html,
+    ...(opts.replyTo ? { replyTo: opts.replyTo } : {}),
     ...(opts.text ? { text: opts.text } : {}),
     ...(opts.unsubscribeUrl
       ? { list: { unsubscribe: { url: opts.unsubscribeUrl, comment: "Unsubscribe" } } }

@@ -21,6 +21,12 @@ const gameSchema = z.object({
   accent: z.enum(gameAccent.enumValues),
   tagline: z.string().trim().min(1, "Tagline is required"),
   blurb: z.string().trim().min(1, "Blurb is required"),
+  storeUrl: z
+    .string()
+    .trim()
+    .url("Enter a full link, e.g. https://…")
+    .optional()
+    .or(z.literal("")),
 });
 
 function parseGame(formData: FormData) {
@@ -33,10 +39,13 @@ function parseGame(formData: FormData) {
     accent: formData.get("accent"),
     tagline: formData.get("tagline"),
     blurb: formData.get("blurb"),
+    storeUrl: formData.get("storeUrl") ?? "",
   });
 
   return {
     ...fields,
+    // Normalize empty input to null so the column stays clean.
+    storeUrl: fields.storeUrl ? fields.storeUrl : null,
     description: getStringList(formData, "description"),
     platforms: getStringList(formData, "platforms"),
     features: getStringList(formData, "features"),

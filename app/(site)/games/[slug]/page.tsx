@@ -58,9 +58,16 @@ export default async function GamePage({
               </p>
             ))}
             <div className="mt-10 flex flex-wrap gap-4">
-              <GrungeButton href="#" size="md">
-                {game.status === "Released" ? "Buy now" : "Wishlist"}
-              </GrungeButton>
+              {game.storeUrl && (
+                <GrungeButton
+                  href={game.storeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  size="md"
+                >
+                  {game.status === "Released" ? "Get it" : "View on store"}
+                </GrungeButton>
+              )}
               <GrungeButton href="/games" tone="sage" size="md">
                 All games
               </GrungeButton>

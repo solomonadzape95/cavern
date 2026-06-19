@@ -70,6 +70,18 @@ export function GameForm({
         </div>
       </Field>
 
+      <Field
+        label="Store link"
+        hint="Optional — where the main button points: Play Store, itch.io, Steam, etc. Leave blank to hide the button."
+      >
+        <TextInput
+          name="storeUrl"
+          type="url"
+          defaultValue={game?.storeUrl ?? ""}
+          placeholder="https://store.steampowered.com/app/…"
+        />
+      </Field>
+
       <Field label="Tagline" hint="A short line shown under the title.">
         <TextInput name="tagline" defaultValue={game?.tagline} required />
       </Field>
