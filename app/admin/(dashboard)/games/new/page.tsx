@@ -1,4 +1,5 @@
 import { requirePermission } from "@/lib/auth/dal";
+import { GamePreviewPane } from "@/components/admin/preview/GamePreview";
 import { GameForm } from "../GameForm";
 import { createGame } from "../actions";
 
@@ -11,7 +12,9 @@ export default async function NewGamePage() {
         <h1 className="font-display text-(length:--text-title) text-canvas-deep">New game</h1>
         <p className="mt-1 text-canvas/60">Add a game to your site.</p>
       </div>
-      <GameForm action={createGame} />
+      <GamePreviewPane>
+        <GameForm action={createGame} />
+      </GamePreviewPane>
     </div>
   );
 }

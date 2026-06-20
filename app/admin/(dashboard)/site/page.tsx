@@ -1,5 +1,6 @@
 import { requirePermission } from "@/lib/auth/dal";
 import { getSiteSettings } from "@/lib/data/site";
+import { SitePreviewPane } from "@/components/admin/preview/HeroPreview";
 import { SiteForm } from "./SiteForm";
 import { updateSiteSettings } from "./actions";
 
@@ -15,7 +16,9 @@ export default async function AdminSitePage() {
           Contact details and social links used across the site.
         </p>
       </div>
-      <SiteForm settings={settings} action={updateSiteSettings} />
+      <SitePreviewPane>
+        <SiteForm settings={settings} action={updateSiteSettings} />
+      </SitePreviewPane>
     </div>
   );
 }

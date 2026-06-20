@@ -86,20 +86,20 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             className="shrink-0 transition-opacity hover:opacity-80"
           >
             <Image
-              src="/cavern-lettermark.svg"
+              src="/logo-cavern.svg"
               alt={name}
-              width={156}
-              height={137}
+              width={799}
+              height={334}
               priority
-              className="block h-9 w-auto invert md:hidden"
+              className="block h-14 w-auto invert md:hidden"
             />
             <Image
               src="/logo-cavern.svg"
               alt={name}
-              width={699}
-              height={234}
+              width={799}
+              height={334}
               priority
-              className="hidden h-10 w-auto invert md:block"
+              className="hidden h-16 w-auto invert md:block"
             />
           </Link>
 
@@ -110,7 +110,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             aria-label={open ? "Close menu" : "Open menu"}
             className="group flex items-center gap-3 focus-visible:outline-none cursor-pointer"
           >
-            <span className="label text-2xl text-paper transition-colors group-hover:text-moss">
+            <span className="uppercase text-xl text-paper transition-colors group-hover:text-moss">
               {open ? "Close" : "Menu"}
             </span>
             <span className="flex flex-col gap-1.25">
@@ -193,7 +193,9 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                               className="text-3xl text-moss md:text-5xl"
                               aria-hidden
                             />
-                            <span className="label text-olive scale-200">0{i + 1}</span>
+                            <span className="label text-olive scale-200">
+                              0{i + 1}
+                            </span>
                           </div>
                           <div className="mt-8">
                             <span

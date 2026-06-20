@@ -77,8 +77,10 @@ export function TeamSection({ team }: { team: Member[] }) {
                 }
                 mediaOverlay={
                   <>
-                    <div className="absolute inset-0 bg-linear-to-t from-black  via-canvas-deep/30 to-transparent" />
-                    {/* <div className="absolute inset-0 bg-moss/0 transition-colors duration-300 group-hover:bg-moss/10" /> */}
+                    {/* resting scrim — keeps name + role legible at the base */}
+                    <div className="absolute inset-0 bg-linear-to-t from-canvas-deep via-canvas-deep/40 to-transparent" />
+                    {/* hover expands the bio upward — dim the whole photo so it stays readable */}
+                    <div className="absolute inset-0 bg-canvas-deep/0 transition-colors duration-300 group-hover:bg-canvas-deep/70" />
                   </>
                 }
                 contentClassName="absolute inset-x-0 bottom-0 p-4 md:p-6"
@@ -90,7 +92,7 @@ export function TeamSection({ team }: { team: Member[] }) {
 
                 <div className="mt-2 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr]">
                   <div className="overflow-hidden">
-                    <p className="mt-1 text-lg md:text-2xl text-sage italic">{m.bio}</p>
+                    <p className="mt-1 text-lg md:text-2xl text-paper/90 italic">{m.bio}</p>
                     <div className="mt-2 flex gap-3">
                       {m.links.map((l) => (
                         <a
