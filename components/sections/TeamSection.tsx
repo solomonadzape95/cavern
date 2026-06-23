@@ -54,7 +54,7 @@ export function TeamSection({ team }: { team: Member[] }) {
       <div className="mt-16 -mx-5 overflow-x-hidden md:-mx-10">
         <div
           ref={trackRef}
-          className="flex w-max gap-4 md:gap-6 h-125 sm:h-125 md:h-150"
+          className="flex w-max gap-4 md:gap-6 h-125 sm:h-125 md:h-170"
         >
           {items.map((m, i) => (
             <div
@@ -80,42 +80,44 @@ export function TeamSection({ team }: { team: Member[] }) {
                     {/* resting scrim — keeps name + role legible at the base */}
                     <div className="absolute inset-0 bg-linear-to-t from-canvas-deep via-canvas-deep/40 to-transparent" />
                     {/* hover expands the bio upward — dim the whole photo so it stays readable */}
-                    <div className="absolute inset-0 bg-canvas-deep/0 transition-colors duration-300 group-hover:bg-canvas-deep/70" />
+                    {/* <div className="absolute inset-0 bg-canvas-deep/0 transition-colors duration-300 group-hover:bg-canvas-deep/70" /> */}
                   </>
                 }
                 contentClassName="absolute inset-x-0 bottom-0 p-4 md:p-6"
               >
-                <p className="font-heading text-2xl leading-tight text-paper md:text-4xl">
-                  {m.name}
-                </p>
-                <p className="uppercase text-lg md:text-xl mt-1 text-sage">{m.role}</p>
-
-                <div className="mt-2 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr]">
+                {/* <div className="mt-2 grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr]">
                   <div className="overflow-hidden">
-                    <p className="mt-1 text-lg md:text-2xl text-paper/90 italic">{m.bio}</p>
-                    <div className="mt-2 flex gap-3">
-                      {m.links.map((l) => (
-                        <a
-                          key={l.label}
-                          href={l.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={l.label}
-                          className="text-moss transition-colors hover:text-paper"
-                        >
-                          <SocialIcon label={l.label} className="text-2xl" />
-                        </a>
-                      ))}
-                    </div>
+                    <p className="mt-1 text-lg md:text-2xl text-paper/90 italic">
+                      {m.bio}
+                    </p>
                   </div>
-                </div>
+                </div> */}
               </GrungeFrame>
+
+              <div className="mt-2 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xl font-semibold text-canvas-deep">{m.name}</p>
+                  <p className="text-md text-canvas-deep/70">{m.role}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  {m.links.map((l) => (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={l.label}
+                      className="text-moss transition-colors hover:text-canvas-deep"
+                    >
+                      <SocialIcon label={l.label} className="text-2xl" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
-
-     
     </section>
   );
 }
